@@ -66,7 +66,7 @@ func defaultDir() string {
 	if runtime.GOOS == "windows" {
 		return filepath.Join(home, "AppData", "Ethash")
 	}
-	return filepath.Join(home, ".test_ethash")
+	return filepath.Join(".ethash")
 }
 
 // cache wraps an ethash_light_t with some metadata
@@ -434,7 +434,7 @@ func GetSeedHash(blockNum uint64) ([]byte, error) {
 
 func makeSeedHash(epoch uint64) (sh common.Hash) {
 	for ; epoch > 0; epoch-- {
-		sh = crypto.Keccak256Hash(sh[:])
+		sh = crypto.Sha3Hash(sh[:])
 	}
 	return sh
 }
